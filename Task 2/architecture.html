@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing Architecture</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #fefae0, #faedcd);
+            color: #333;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #fff8dc;
+            padding: 20px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+        }
+
+        .sidebar h2 {
+            font-size: 1.5em;
+            color: #d17b0f;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            display: block;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background: #ffcc80;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 270px;
+            padding: 40px;
+            width: calc(100% - 270px);
+        }
+
+        header {
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .top-image {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cards */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #d17b0f;
+            margin-bottom: 10px;
+        }
+
+       /* Next Button - Aligned Left */
+.next-btn {
+    display: block;
+    width: 150px;
+    margin: 40px 0 0 0; /* Align left */
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #d17b0f;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.next-btn:hover {
+    background: #b3690c;
+}
+
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            padding: 15px;
+            font-size: 14px;
+            background: #fff8dc;
+            color: #555;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Cloud Topics</h2>
+        <ul>
+            <li><a href="index2.html">Home</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="ad.html">Cloud Insights</a></li>
+            <li><a href="service.html">Cloud Services</a></li>
+            <li><a href="deployment.html">Deployment Models</a></li>
+            <li><a href="security.html">Security</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>Cloud Computing Architecture</h1>
+        </header>
+        
+        <img src="arc.jpg" alt="Cloud Computing Overview" class="top-image">
+
+        <div class="container">
+            <div class="card">
+                <h3>1. Frontend</h3>
+                <p>User interface for interacting with cloud services.</p>
+            </div>
+            <div class="card">
+                <h3>2. Backend</h3>
+                <p>Cloud infrastructure that supports processing and storage.</p>
+            </div>
+            <div class="card">
+                <h3>3. Client Infrastructure</h3>
+                <p>Devices and systems used to access cloud services.</p>
+            </div>
+            <div class="card">
+                <h3>4. Application</h3>
+                <p>Software running on the cloud infrastructure.</p>
+            </div>
+            <div class="card">
+                <h3>5. Service</h3>
+                <p>Cloud-provided functionality like databases and messaging.</p>
+            </div>
+            <div class="card">
+                <h3>6. Cloud Runtime</h3>
+                <p>Environment where applications execute.</p>
+            </div>
+            <div class="card">
+                <h3>7. Storage</h3>
+                <p>Data storage solutions such as databases and file storage.</p>
+            </div>
+            <div class="card">
+                <h3>8. Infrastructure</h3>
+                <p>Hardware and networking components supporting cloud computing.</p>
+            </div>
+            <div class="card">
+                <h3>9. Management</h3>
+                <p>Tools and systems used to monitor and maintain cloud services.</p>
+            </div>
+            <div class="card">
+                <h3>10. Security</h3>
+                <p>Measures ensuring the integrity and confidentiality of data.</p>
+            </div>
+            <div class="card">
+                <h3>11. Internet</h3>
+                <p>Network that connects users to cloud services.</p>
+            </div>
+        </div>
+
+        <!-- Next Button -->
+        <a href="ad.html" class="next-btn">Next</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cloud Computing Knowledge Hub | Built with ❤️</p>
+    </footer>
+</body>
+</html>

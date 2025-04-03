@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Cloud Computing Knowledge Hub</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #fffaf0, #f7efe5);
+            color: #444;
+            text-align: center;
+        }
+        header {
+            background: #fff;
+            padding: 40px;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content {
+            padding: 50px 20px;
+            max-width: 700px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px;
+            background: #ffaf40;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+        button:hover {
+            background: #ffcc80;
+        }
+        #success-message {
+            display: none;
+            color: green;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+        footer {
+            margin-top: 40px;
+            padding: 15px;
+            font-size: 14px;
+            background: #fffaf0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Reach out with your questions or feedback.</p>
+    </header>
+    
+    <section class="content">
+        <h2>Get in Touch</h2>
+        <form id="contact-form">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        
+        <p id="success-message">✅ Your message has been sent successfully!</p>
+
+        <p>Or email us directly at <a href="mailto:support@cloudhub.com">support@cloudhub.com</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Cloud Computing Knowledge Hub | Built with ❤️</p>
+    </footer>
+
+    <script>
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevents page reload
+
+            // Show success message
+            document.getElementById("success-message").style.display = "block";
+
+            // Clear form fields
+            document.getElementById("contact-form").reset();
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                document.getElementById("success-message").style.display = "none";
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
