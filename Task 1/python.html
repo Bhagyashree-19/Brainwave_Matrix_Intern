@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #000428, #004e92);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px black;
+            margin-bottom: 20px;
+        }
+        .quiz-container {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .options {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 18px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        label:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            font-size: 22px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Let's Go! Python Quiz </h1>
+    <div class="quiz-container">
+        <form id="quizForm">
+            <div id="questions"></div>
+            <button type="button" onclick="checkAnswers()">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+    { q: "Who developed Python?", options: ["Guido van Rossum", "James Gosling", "Dennis Ritchie", "Bjarne Stroustrup"], answer: "Guido van Rossum" },
+    { q: "What file extension is used for Python files?", options: [".py", ".java", ".txt", ".cpp"], answer: ".py" },
+    { q: "Which keyword is used to define a class in Python?", options: ["class", "Class", "def", "struct"], answer: "class" },
+    { q: "Which data type is used to store text in Python?", options: ["str", "int", "bool", "list"], answer: "str" },
+    { q: "What does len() return when called on a Python list?", options: ["Number of elements", "Sum of elements", "Last element", "First element"], answer: "Number of elements" },
+    { q: "Which operator is used for exponentiation in Python?", options: ["**", "^", "%", "exp"], answer: "**" },
+    { q: "Which module is automatically available in every Python program?", options: ["builtins", "sys", "os", "math"], answer: "builtins" },
+    { q: "What is used to handle exceptions in Python?", options: ["try-except", "if-else", "switch-case", "finally"], answer: "try-except" },
+    { q: "Which keyword is used to exit a loop in Python?", options: ["exit", "break", "stop", "end"], answer: "break" },
+    { q: "What is the conventional name for the entry function in a Python script?", options: ["main", "start", "run", "execute"], answer: "main" },
+    { q: "What is the boolean value of 0 in Python?", options: ["True", "False", "None", "Error"], answer: "False" },
+    { q: "What does PEP stand for in Python?", options: ["Python Enhancement Proposal", "Python Encrypted Package", "Programming Enhancement Plan", "Python Enterprise Protocol"], answer: "Python Enhancement Proposal" },
+    { q: "How do you indicate inheritance in Python?", options: ["By specifying the parent class in parentheses", "Using the extends keyword", "Using the inherits keyword", "Using the subclass keyword"], answer: "By specifying the parent class in parentheses" },
+    { q: "How do you compare two strings for equality in Python?", options: ["==", "equals()", "compare()", "isEqual()"], answer: "==" },
+    { q: "How are constants typically defined in Python?", options: ["Using uppercase variable names", "using const keyword", "using final keyword", "Using immutable variables"], answer: "Using uppercase variable names" },
+    { q: "Which built-in data type in Python allows duplicate elements?", options: ["list", "set", "tuple", "dictionary"], answer: "list" },
+    { q: "What is the result of int() with no arguments in Python?", options: ["0", "null", "undefined", "1"], answer: "0" },
+    { q: "Which keyword is used to import a module in Python?", options: ["import", "include", "require", "using"], answer: "import" },
+    { q: "Which loop structure is not available in Python?", options: ["do-while", "for", "while", "foreach"], answer: "do-while" },
+    { 
+      q: "Which of the following is used to create a new thread in Python?", 
+      options: [
+          "threading.Thread(target=function)", 
+          "Thread(target=function)", 
+          "new Thread(function)", 
+          "startThread(function)"
+      ], 
+      answer: "threading.Thread(target=function)"
+    }
+];
+
+
+        function loadQuestions() {
+            const questionContainer = document.getElementById("questions");
+            questionContainer.innerHTML = "";
+            
+            questions.forEach((item, index) => {
+                const questionHTML = `
+                    <div class="question">${index + 1}. ${item.q}</div>
+                    <div class="options">
+                        ${item.options.map(option => `
+                            <label>
+                                <input type="radio" name="q${index}" value="${option}"> ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                questionContainer.innerHTML += questionHTML;
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            questions.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption && selectedOption.value === item.answer) {
+                    score++;
+                }
+            });
+
+            const resultContainer = document.getElementById("result");
+            // Display Congratulations if more than 14 answers are correct, otherwise display Try Again.
+            if(score > 14) {
+                resultContainer.innerHTML = "Congratulations!  You scored " + score + " out of " + questions.length + ".";
+            } else {
+                resultContainer.innerHTML = "Oops! Try Again . You scored " + score + " out of " + questions.length + ".";
+            }
+        }
+
+        window.onload = loadQuestions;
+    </script>
+</body>
+</html>

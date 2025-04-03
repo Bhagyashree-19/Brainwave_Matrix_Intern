@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #000428, #004e92);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px black;
+            margin-bottom: 20px;
+        }
+        .quiz-container {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .options {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 18px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        label:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            font-size: 22px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Let's Go! Java Quiz </h1>
+    <div class="quiz-container">
+        <form id="quizForm">
+            <div id="questions"></div>
+            <button type="button" onclick="checkAnswers()">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Who developed Java?", options: ["James Gosling", "Guido van Rossum", "Dennis Ritchie", "Bjarne Stroustrup"], answer: "James Gosling" },
+            { q: "What keyword is used to define a class in Java?", options: ["class", "Class", "define", "struct"], answer: "class" },
+            { q: "Which data type is used to store a single character in Java?", options: ["char", "string", "Character", "int"], answer: "char" },
+            { q: "What does `length()` return when called on a Java array?", options: ["Number of elements", "Sum of elements", "Last element", "First element"], answer: "Number of elements" },
+            { q: "Which operator is used for bitwise AND operation in Java?", options: ["&", "&&", "|", "||"], answer: "&" },
+            { q: "Which package is imported by default in every Java program?", options: ["java.lang", "java.util", "java.io", "java.net"], answer: "java.lang" },
+            { q: "What is used to handle exceptions in Java?", options: ["try-catch", "if-else", "switch-case", "loop"], answer: "try-catch" },
+            { q: "Which keyword is used to exit a loop in Java?", options: ["exit", "break", "stop", "end"], answer: "break" },
+            { q: "Which method is called when a Java application starts?", options: ["main()", "start()", "run()", "execute()"], answer: "main()" },
+            { q: "What is the default value of a boolean variable in Java?", options: ["true", "false", "null", "0"], answer: "false" },
+            { q: "What does JVM stand for?", options: ["Java Virtual Machine", "Java Variable Memory", "Java Verified Mode", "Java Virtual Mode"], answer: "Java Virtual Machine" },
+            { q: "Which keyword is used to create a subclass in Java?", options: ["extends", "implements", "inherits", "super"], answer: "extends" },
+            { q: "Which method is used to compare two strings in Java?", options: ["equals()", "compare()", "==", "match()"], answer: "equals()" },
+            { q: "What is the purpose of the `final` keyword in Java?", options: ["Prevent modification", "Create an instance", "End program", "Override method"], answer: "Prevent modification" },
+            { q: "Which collection class allows duplicate elements?", options: ["ArrayList", "HashSet", "TreeSet", "LinkedHashSet"], answer: "ArrayList" },
+            { q: "What is the default value of an integer variable in Java?", options: ["0", "null", "undefined", "1"], answer: "0" },
+            { q: "Which keyword is used to implement an interface in Java?", options: ["implements", "extends", "inherits", "uses"], answer: "implements" },
+            { q: "Which loop guarantees at least one execution?", options: ["do-while", "for", "while", "foreach"], answer: "do-while" },
+            { q: "Which Java keyword is used to define a constant?", options: ["final", "const", "static", "immutable"], answer: "final" },
+            // Additional advanced question
+            { 
+              q: "Which of the following is used to create a new thread in Java?", 
+              options: [
+                  "Thread t = new Thread();", 
+                  "Runnable r = new Runnable();", 
+                  "Thread t = new Thread(new Runnable() {});", 
+                  "Executor e = new Executor();"
+              ], 
+              answer: "Thread t = new Thread(new Runnable() {});"
+            }
+        ];
+
+        function loadQuestions() {
+            const questionContainer = document.getElementById("questions");
+            questionContainer.innerHTML = "";
+            
+            questions.forEach((item, index) => {
+                const questionHTML = `
+                    <div class="question">${index + 1}. ${item.q}</div>
+                    <div class="options">
+                        ${item.options.map(option => `
+                            <label>
+                                <input type="radio" name="q${index}" value="${option}"> ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                questionContainer.innerHTML += questionHTML;
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            questions.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption && selectedOption.value === item.answer) {
+                    score++;
+                }
+            });
+
+            const resultContainer = document.getElementById("result");
+            // Display Congratulations if more than 14 answers are correct, otherwise display Try Again.
+            if(score > 14) {
+                resultContainer.innerHTML = "Congratulations!  You scored " + score + " out of " + questions.length + ".";
+            } else {
+                resultContainer.innerHTML = "Oops! Try Again . You scored " + score + " out of " + questions.length + ".";
+            }
+        }
+
+        window.onload = loadQuestions;
+    </script>
+</body>
+</html>

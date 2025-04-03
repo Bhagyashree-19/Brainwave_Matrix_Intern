@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Html_CSS Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #000428, #004e92);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px black;
+            margin-bottom: 20px;
+        }
+        .quiz-container {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .options {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 18px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        label:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            font-size: 22px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Let's Go! Html_Css Quiz </h1>
+    <div class="quiz-container">
+        <form id="quizForm">
+            <div id="questions"></div>
+            <button type="button" onclick="checkAnswers()">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+    { q: "What does HTML stand for?", options: ["HyperText Markup Language", "HyperTransfer Markup Language", "HighText Machine Language", "HyperText Machine Learning"], answer: "HyperText Markup Language" },
+    { q: "Which CSS property controls text size?", options: ["font-size", "text-style", "text-size", "font-style"], answer: "font-size" },
+    { q: "What is the purpose of the '<head>' tag in HTML?", options: ["Contains metadata", "Defines the main content", "Displays headings", "Creates a footer"], answer: "Contains metadata" },
+    { q: "What is the default position of an HTML element?", options: ["static", "absolute", "relative", "fixed"], answer: "static" },
+    { q: "Which CSS property is used to change the background color of an element?", options: ["background-color", "color", "bgcolor", "background"], answer: "background-color" },
+    { q: "Which property is used to change the text color in CSS?", options: ["color", "text-color", "foreground", "font-color"], answer: "color" },
+    { q: "What does the `position: absolute;` property do in CSS?", options: ["Positions an element relative to its nearest positioned ancestor", "Positions an element relative to the viewport", "Positions an element relative to its normal flow", "Makes an element float"], answer: "Positions an element relative to its nearest positioned ancestor" },
+    { q: "Which unit is relative to the font size of the root element in CSS?", options: ["rem", "em", "px", "%"], answer: "rem" },
+    { q: "What is the default display property of a '<div>' element?", options: ["block", "inline", "flex", "grid"], answer: "block" },
+    { q: "Which CSS property is used to make text bold?", options: ["font-weight", "text-style", "bold", "font-bold"], answer: "font-weight" },
+    { q: "Which pseudo-class is used to style an element when the user hovers over it?", options: [":hover", ":focus", ":visited", ":active"], answer: ":hover" },
+    { q: "Which HTML attribute specifies an image source?", options: ["src", "href", "link", "alt"], answer: "src" },
+    { q: "Which CSS property is used to control the spacing between lines of text?", options: ["line-height", "letter-spacing", "text-indent", "word-spacing"], answer: "line-height" },
+    { q: "What does `z-index` do in CSS?", options: ["Controls the stack order of elements", "Changes the zoom level of an element", "Sets the opacity", "Adjusts the width"], answer: "Controls the stack order of elements" },
+    { q: "Which attribute is used to open a link in a new tab?", options: ["target='_blank'", "new-tab='true'", "open='_new'", "window='_new'"], answer: "target='_blank'" },
+    { q: "What is the purpose of media queries in CSS?", options: ["To apply styles based on screen size", "To create animations", "To change text alignment", "To load external scripts"], answer: "To apply styles based on screen size" },
+    { q: "Which CSS property is used to make a website responsive?", options: ["@media", "flexbox", "grid", "float"], answer: "@media" },
+    { q: "What does `display: flex;` do in CSS?", options: ["Enables flexible layout", "Hides the element", "Creates a fixed layout", "Aligns text in the center"], answer: "Enables flexible layout" },
+    { q: "Which CSS property is used to make a background image cover the entire container?", options: ["background-size: cover;", "background: fit;", "background-position: full;", "background-width: 100%;"], answer: "background-size: cover;" },
+    { 
+      q: "Which CSS property is used to create a transition effect?", 
+      options: [
+          "transition", 
+          "animation", 
+          "transform", 
+          "effect"
+      ], 
+      answer: "transition"
+    }
+];
+
+        function loadQuestions() {
+            const questionContainer = document.getElementById("questions");
+            questionContainer.innerHTML = "";
+            
+            questions.forEach((item, index) => {
+                const questionHTML = `
+                    <div class="question">${index + 1}. ${item.q}</div>
+                    <div class="options">
+                        ${item.options.map(option => `
+                            <label>
+                                <input type="radio" name="q${index}" value="${option}"> ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                questionContainer.innerHTML += questionHTML;
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            questions.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption && selectedOption.value === item.answer) {
+                    score++;
+                }
+            });
+
+            const resultContainer = document.getElementById("result");
+            // Display Congratulations if more than 14 answers are correct, otherwise display Try Again.
+            if(score > 14) {
+                resultContainer.innerHTML = "Congratulations!  You scored " + score + " out of " + questions.length + ".";
+            } else {
+                resultContainer.innerHTML = "Oops! Try Again . You scored " + score + " out of " + questions.length + ".";
+            }
+        }
+
+        window.onload = loadQuestions;
+    </script>
+</body>
+</html>

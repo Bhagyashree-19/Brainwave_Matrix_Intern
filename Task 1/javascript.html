@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #000428, #004e92);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px black;
+            margin-bottom: 20px;
+        }
+        .quiz-container {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .options {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 18px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        label:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            font-size: 22px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Let's Go! JavaScript Quiz </h1>
+    <div class="quiz-container">
+        <form id="quizForm">
+            <div id="questions"></div>
+            <button type="button" onclick="checkAnswers()">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+  <script>
+       const questions = [
+    { q: "What does JavaScript primarily do in web development?", options: ["Styles web pages", "Adds interactivity", "Manages databases", "Creates operating systems"], answer: "Adds interactivity" },
+    { q: "Which keyword is used to declare a variable in JavaScript?", options: ["var", "int", "string", "declare"], answer: "var" },
+    { q: "Which symbol is used for single-line comments in JavaScript?", options: ["//", "/*", "#", "--"], answer: "//" },
+    { q: "Which method prints messages to the console in JavaScript?", options: ["console.log()", "print()", "log.console()", "display()"], answer: "console.log()" },
+    { q: "Which operator checks both value and type in JavaScript?", options: ["==", "===", "=", "!=="], answer: "===" },
+    { q: "Which function converts a string to an integer in JavaScript?", options: ["parseInt()", "toInteger()", "int()", "convertToInt()"], answer: "parseInt()" },
+    { q: "How do you define a function in JavaScript?", options: ["function myFunction()", "def myFunction()", "func myFunction()", "void myFunction()"], answer: "function myFunction()" },
+    { q: "Which data type stores true or false values in JavaScript?", options: ["boolean", "string", "integer", "object"], answer: "boolean" },
+    { q: "Which method removes the last element from an array?", options: ["pop()", "push()", "shift()", "splice()"], answer: "pop()" },
+    { q: "Which keyword defines a constant variable in JavaScript?", options: ["const", "var", "let", "constant"], answer: "const" },
+    { q: "Which method finds the length of an array in JavaScript?", options: ["length", "size", "count", "index"], answer: "length" },
+    { q: "What is the output of `typeof []` in JavaScript?", options: ["array", "object", "list", "undefined"], answer: "object" },
+    { q: "Which method merges two or more arrays?", options: ["concat()", "merge()", "combine()", "append()"], answer: "concat()" },
+    { q: "Which function runs code after a delay?", options: ["setTimeout()", "setInterval()", "delay()", "wait()"], answer: "setTimeout()" },
+    { q: "What does `NaN` stand for in JavaScript?", options: ["Not a Number", "Null and None", "Negative and Null", "No assigned Number"], answer: "Not a Number" },
+    { q: "Which object handles dates and times in JavaScript?", options: ["Date", "Time", "Calendar", "Clock"], answer: "Date" },
+    { q: "Which loop executes at least once before checking the condition?", options: ["do-while", "for", "while", "foreach"], answer: "do-while" },
+    { q: "Which keyword handles exceptions in JavaScript?", options: ["try-catch", "catch-try", "if-else", "handle-error"], answer: "try-catch" },
+    { q: "Which statement exits a loop in JavaScript?", options: ["break", "exit", "stop", "return"], answer: "break" },
+    { q: "Which method converts a string to lowercase?", options: ["toLowerCase()", "lowerCase()", "convertLower()", "smallCase()"], answer: "toLowerCase()" }
+];
+
+
+        function loadQuestions() {
+            const questionContainer = document.getElementById("questions");
+            questionContainer.innerHTML = "";
+            
+            questions.forEach((item, index) => {
+                const questionHTML = `
+                    <div class="question">${index + 1}. ${item.q}</div>
+                    <div class="options">
+                        ${item.options.map(option => `
+                            <label>
+                                <input type="radio" name="q${index}" value="${option}"> ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                questionContainer.innerHTML += questionHTML;
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            questions.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption && selectedOption.value === item.answer) {
+                    score++;
+                }
+            });
+
+            const resultContainer = document.getElementById("result");
+            // Display Congratulations if more than 14 answers are correct, otherwise display Try Again.
+            if(score > 14) {
+                resultContainer.innerHTML = "Congratulations!  You scored " + score + " out of " + questions.length + ".";
+            } else {
+                resultContainer.innerHTML = "Oops! Try Again . You scored " + score + " out of " + questions.length + ".";
+            }
+        }
+
+        window.onload = loadQuestions;
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-image: url('https://media.istockphoto.com/id/1386836234/vector/abstract-blurred-colorful-background.jpg?s=612x612&w=0&k=20&c=CWwGk1voXayjM9eYHZXMtfWk5i2P4xSnXSnzTiyz5xc=');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 150px);
+            grid-gap: 30px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        .nav-buttons button {
+            font-size: 24px;
+            width: 150px;
+            height: 150px;
+            border: none;
+            border-radius: 20px;
+            background-color: black; /* Changed to black */
+            color: black; /* Changed text color to black */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+        }
+        .nav-buttons button:hover {
+            background-color: darkgray; /* Subtle hover effect */
+        }
+        h1 {
+            font-size: 36px;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark background for contrast */
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Your Quiz</h1>
+    
+    <div class="nav-buttons">
+        <button onclick="window.location.href='java.html'">Java</button>
+        <button onclick="window.location.href='javascript.html'">JavaScript</button>
+        <button onclick="window.location.href='python.html'">Python</button>
+        <button onclick="window.location.href='htmlcss.html'">HTML/CSS</button>
+    </div>
+</body>
+</html>
